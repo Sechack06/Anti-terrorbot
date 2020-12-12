@@ -33,9 +33,19 @@ function terrorproc(msg, msglist, server){
             i++
             continue
         }else{
-            userlist.push(msglist[i].user)
+            server.members.cache.forEach((member) => {
+                if(msglist[i].user.id === member.id){
+                    if(member.manageable){
+                        userlist.push(msglist[i].user)
+                    }
+                }
+            })
             i++
         }
+    }
+    if(userlist.length === 0){
+        console.log("only admin")
+        return
     }
     givemute(userlist, server)
     i = 0
